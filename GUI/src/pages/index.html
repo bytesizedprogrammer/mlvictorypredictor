@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Electron App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    }
+    .title-bar {
+      -webkit-app-region: drag;
+      height: 35px;
+      background-color: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 18px;
+    }
+    .title-bar button {
+      -webkit-app-region: no-drag;
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .x-icon:hover {
+      transition: all 0.3s ease;
+      background: red;
+      color: white;
+    }
+
+    .bodyContainer {
+      height: 100vh; /* Full height of the viewport */
+      display: grid;
+      grid-template-rows: 33% 50% 17%; /* Set rows to the specified heights */
+      gap: 10px; /* Gap between rows */
+    }
+
+    .containerGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking equal width */
+      height: 100%;
+      width: 100%;
+      gap: 10px; /* Gap between columns */
+      /*background-color: red;*/
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      gap: 10px; /* Gap between columns */
+      /*background-color: green;*/
+    }
+
+    .containerD {
+      display: flex;
+      flex-direction: row; /* Arrange items in a row */
+      align-items: center; /* Center items vertically */
+      justify-content: space-between; /* Space out items */
+      /*background-color: yellowgreen;*/
+      width: 99%;
+      height: auto;
+      padding: 10px; /* Optional padding */
+      margin-right: 0px;
+    }
+
+    .dollar {
+
+    }
+
+    .box {
+      background-color: coral;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      width: 97%;
+      height: 100%;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .box:hover {
+      cursor: pointer;
+      /*background-color: green;*/
+      transition: all 0.3s ease;
+    }
+
+    .a {
+      margin-left: 6px;
+      opacity: 10%;
+    }
+
+    .a:hover {
+      opacity: 0%;
+    }
+
+    .b {
+      margin-left: 6px;
+      margin-right: 6px;
+      opacity: 80%;
+    }
+
+    .b:hover {
+      opacity: 100%;
+    }
+
+    .c {
+      margin-right: 6px;
+      opacity: 10%;
+    }
+
+    .c:hover {
+      opacity: 0%;
+    }
+
+    .icon {
+      width: 30px;
+    }
+
+    .imgSize {
+      width: 70px; 
+      cursor: pointer;
+    }
+
+    .imgSizeA {
+      width: 50px;
+      cursor: pointer;
+    }
+
+    .POGGERS {
+      color: white;
+      font-size: 44px;
+    }
+
+    .supportUs {
+      background-color: goldenrod;
+      border: none;
+      border-radius: 25px;
+      font-size: 20px;
+      padding: 10px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .versionButton {
+      background-color: goldenrod;
+      border: none;
+      border-radius: 25px;
+      font-size: 20px;
+      padding: 10px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="title-bar">
+    <img class="icon" src="../imgs/20xx.jpg" alt="" />
+    <span>SSBM Victory Predictor</span>
+    <button class="x-icon" onclick="window.close()">✕</button>
+  </div>
+
+  <div class="bodyContainer">
+    <div class="container">
+      <h1 class="POGGERS"> WELCOME BACK! </h1>
+    </div>
+    <div class="containerGrid">
+      <div class="box a" onclick="navigate('DataSetSetter.html')">Dataset setter</div>
+      <div class="box b" id="runModel" onclick="openRunModelPage()">Run the ML Model!</div> <!-- onclick="navigate('RunModel.html')" -->
+      <div class="box c" onclick="navigate('MLSettings.html')">ML Model Settings</div>
+    </div>
+
+
+  <div class="dollar">
+    <div class="containerD">
+      <img id="youtubeIcon" class="imgSize" src="../imgs/Symbol-Youtube.png" alt="Youtube Icon" />
+      <img id="discordIcon" class="imgSizeA" src="../imgs/Disocrd Icn.jpg" alt="Discord Icon" />
+      <button id="supportButton" class="supportUs"> Support Us </button>
+      <button id="versionButton" class="versionButton"> v1.0.0 (BETA) </button>
+    </div>
+  </div>
+  </div>
+
+  <script>
+
+   /* BRING BACK FOR "DATASET SETTER.html" AND "MLSettings.html"
+    function navigate(page) {
+      window.location.href = page;
+    }  
+   */
+    
+   /* this is for when graph is added
+    function openRunModelPage() {
+      window.open('RunModel.html', '_blank', 'width=700,height=825,toolbar=no,frame=false,menubar=no,scrollbars=yes,resizable=no'); // Opens in a new window
+    }
+   */
+
+   // graphLess
+   function openRunModelPage() {
+      window.open('RunModel.html', '_blank', 'width=200,height=225,toolbar=no,frame=false,menubar=no,scrollbars=yes,resizable=no'); // Opens in a new window
+    }
+    
+    
+  </script>
+
+  <script src="../scripts/renderer.js"> </script>
+</body>
+</html>

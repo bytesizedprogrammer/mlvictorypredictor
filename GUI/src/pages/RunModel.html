@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RunModel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+      color: white;
+    }
+
+    .title-bar {
+      -webkit-app-region: drag;
+      height: 35px;
+      background-color: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 18px;
+    }
+
+    .title-bar button {
+      -webkit-app-region: no-drag;
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .x-icon:hover {
+      transition: all 0.3s ease;
+      background: red;
+      color: white;
+    }
+
+    .bodyContainer {
+      height: calc(100vh - 35px); /* Full height minus title bar */
+      display: grid;
+      grid-template-rows: 20% 80%; /* Top 20%, bottom 80% */
+    }
+
+    .top-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+
+
+      height: 100vh; /* graphless */
+    }
+
+    .bottom-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #message {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #likelihoodOfLosing {
+      font-size: 32px;
+      font-weight: bold;
+
+      /* graph less */
+      position: absolute;
+      top: 70px;
+      /* graphed
+      position: relative;
+      top: -20px;*/
+    }
+
+    .imgSize {
+      width: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="title-bar">
+    <img class="imgSize" src="../imgs/20xx.jpg" alt="" />
+    <span>SSBM Victory Predictor</span>
+    <button class="x-icon" onclick="window.close()">✕</button>
+  </div>
+
+  <div class="bodyContainer">
+    <!-- Top 20% Container -->
+    <div class="top-container">
+      <p id="message"></p>
+      <p id="likelihoodOfLosing"></p>
+    </div>
+
+    <!-- Bottom 80% Container 
+    <div class="bottom-container">
+      <p id="graph"></p>
+    </div>
+  </div>
+  -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const messageElement = document.getElementById('message');
+      const likelihoodOfLosingElement = document.getElementById('likelihoodOfLosing');
+      document.title = 'RunModel';
+
+      async function fetchLikelihood() {
+        try {
+          const response = await fetch('http://localhost:5000/receivelikelihood');
+          const data = await response.json();
+          console.log(data);
+
+          messageElement.textContent = data.message;
+
+          if (data && data.data && data.data[0]) {
+            const likelihoodOfLosing = data.data[0].likelihoodOfLosing;
+
+            if (likelihoodOfLosing == 200.00) {
+              likelihoodOfLosingElement.textContent = "YOU WIN!!!";
+            } else if (likelihoodOfLosing == 500.00) {
+              likelihoodOfLosingElement.textContent = "YOU LOSE!!!";
+            } else {
+              let likelihoodOfWinning = 100 - likelihoodOfLosing;
+              likelihoodOfLosingElement.textContent = `${likelihoodOfWinning || 'N/A'}%`;
+            }
+          } else {
+            console.error("Likelihood of Losing data not found:", data);
+          }
+        } catch (err) {
+          console.error("Error fetching data:", err);
+        }
+      }
+
+      const intervalId = setInterval(fetchLikelihood, 1000);
+
+      window.addEventListener('beforeunload', () => {
+        clearInterval(intervalId);
+      });
+    });
+  </script>
+</body>
+</html>
